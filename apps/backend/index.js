@@ -9,7 +9,6 @@ app.use(express.json())
 
 const SECRET = process.env.SECRET
 
-// verifica se a SECRET existe
 if (!SECRET) {
   throw new Error('SECRET não definida no .env')
 }
