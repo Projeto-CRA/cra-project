@@ -2,6 +2,7 @@ import { Controller, Post, Body, UseGuards, Request, Get, HttpCode, HttpStatus, 
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { JwtRefreshAuthGuard } from './guards/jwt-refresh-auth.guard';
+import { LoginDto } from './dto/login.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -14,10 +15,10 @@ export class AuthController {
 
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  async login(@Body() req: any) {
+  async login(@Body() loginDto: LoginDto) {
     // Para simplificar, estamos extraindo o username e password do body.
     // O ideal num fluxo completo seria usar o LocalGuard do Passport.
-    const user = await this.authService.validateUser(req.username, req.password);
+    const user = await this.authService.validateUser(loginDto.username, loginDto.password);
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
     }
