@@ -1,0 +1,122 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model audit_logs {
+  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id    String?   @db.Uuid
+  action     String    @db.VarChar(100)
+  entity     String    @db.VarChar(100)
+  metadata   Json?
+  created_at DateTime? @default(now()) @db.Timestamp(6)
+  users      users?    @relation(fields: [user_id], references: [id], onUpdate: NoAction)
+}
+
+model cycles {
+  id           String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  sync_status SyncStatus         @default(PENDING)
+  last_sync_at DateTime?         @db.Timestamp(6)
+  user_id      String            @db.Uuid
+  section_code String            @db.VarChar(50)
+  status       cycle_status_enum @default(started)
+  started_at   DateTime?         @default(now()) @db.Timestamp(6)
+  paused_at    DateTime?         @db.Timestamp(6)
+  ended_at     DateTime?         @db.Timestamp(6)
+  start_lat    Decimal?          @db.Decimal(10, 7)
+  start_lng    Decimal?          @db.Decimal(10, 7)
+  start_geom Unsupported("geometry(Point, 4326)")?
+  end_lat      Decimal?          @db.Decimal(10, 7)
+  end_lng      Decimal?          @db.Decimal(10, 7)
+  end_geom Unsupported("geometry(Point, 4326)")?
+  created_at   DateTime?         @default(now()) @db.Timestamp(6)
+  updated_at   DateTime?         @default(now()) @db.Timestamp(6)
+  deletado_em  DateTime?         @db.Timestamp(6)
+  users        users             @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  photos       photos[]
+  supplies     supplies[]
+}
+
+model photos {
+  id          String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  cycle_id    String            @db.Uuid
+  moment      photo_moment_enum
+  s3_key      String
+  latitude    Decimal?          @db.Decimal(10, 7)
+  longitude   Decimal?          @db.Decimal(10, 7)
+  geom Unsupported("geometry(Point, 4326)")?
+  taken_at    DateTime?         @default(now()) @db.Timestamp(6)
+  sync_status SyncStatus        @default(PENDING)
+  created_at  DateTime?         @default(now()) @db.Timestamp(6)
+  deletado_em DateTime?         @db.Timestamp(6)
+  cycles      cycles            @relation(fields: [cycle_id], references: [id], map: "fk_photos_cycles")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model supplies {
+  id          String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  cycle_id    String           @db.Uuid
+  type        supply_type_enum
+  quantity    Decimal          @db.Decimal(10, 2)
+  unit        supply_unit_enum
+  created_at  DateTime?        @default(now()) @db.Timestamp(6)
+  updated_at  DateTime?        @default(now()) @db.Timestamp(6)
+  deletado_em DateTime?        @db.Timestamp(6)
+  cycles      cycles           @relation(fields: [cycle_id], references: [id], map: "fk_supplies_cycles")
+  sync_status SyncStatus       @default(PENDING)
+  last_sync_at DateTime?       @db.Timestamp(6)
+}
+
+model users {
+  id            String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email         String         @unique @db.VarChar(150)
+  password_hash String
+  full_name     String         @db.VarChar(120)
+  role          user_role_enum @default(operator)
+  is_active     Boolean        @default(true)
+  created_at    DateTime?      @default(now()) @db.Timestamp(6)
+  updated_at    DateTime?      @default(now()) @db.Timestamp(6)
+  deletado_em   DateTime?      @db.Timestamp(6)
+  audit_logs    audit_logs[]
+  cycles        cycles[]
+}
+
+enum cycle_status_enum {
+  started
+  paused
+  finished
+}
+
+enum photo_moment_enum {
+  before
+  during
+  after
+}
+
+enum supply_type_enum {
+  NYLON
+  GASOLINE
+  OUTROS
+}
+
+enum supply_unit_enum {
+  unit
+  kg
+  liter
+  box
+}
+
+enum user_role_enum {
+  admin
+  operator
+  manager
+}
+
+enum SyncStatus {
+  PENDING
+  SYNCED
+  FAILED
+}
