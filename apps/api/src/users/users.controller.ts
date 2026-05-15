@@ -1,15 +1,16 @@
 import { Controller, Get } from '@nestjs/common';
-import { ApiTags, ApiOperation } from '@nestjs/swagger';
-import { UsersService } from './users.service';
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
-@ApiTags('Usuários') // Isso apenas agrupa a rota no manual, não muda o código
+@ApiTags('Usuários')
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
-
+  // Removemos o constructor que pedia o UsersService
+  
   @Get()
-  @ApiOperation({ summary: 'Lista todos os usuários do sistema' })
+  @ApiOperation({ summary: 'Lista todos os usuários do sistema (Simulado)' })
+  @ApiResponse({ status: 200, description: 'Sucesso' })
   findAll() {
-    return this.usersService.findAll();
+    // Retorno fixo apenas para o Swagger validar a rota
+    return [{ id: 1, nome: 'Usuário Teste', role: 'ADMIN' }];
   }
 }
