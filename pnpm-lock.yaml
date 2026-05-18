@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@nestjs/swagger':
+        specifier: ^11.4.3
+        version: 11.4.3(@nestjs/common@11.1.19(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.19(@nestjs/common@11.1.19(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.19)(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)
     devDependencies:
       prettier:
         specifier: ^3.7.4
@@ -133,9 +137,15 @@ importers:
         specifier: ^0.21.2
         version: 0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
     devDependencies:
+      '@babel/preset-typescript':
+        specifier: ^7.28.5
+        version: 7.28.5(@babel/core@7.29.0)
       '@types/react':
-        specifier: ~19.1.0
+        specifier: ~19.1.17
         version: 19.1.17
+      '@types/react-native':
+        specifier: ^0.73.0
+        version: 0.73.0(@babel/core@7.29.0)(@types/react@19.1.17)(react@19.1.0)
       typescript:
         specifier: ~5.9.2
         version: 5.9.2
@@ -164,8 +174,8 @@ importers:
         specifier: ^5.2.0
         version: 5.2.0(eslint@9.39.1)
       eslint-plugin-turbo:
-        specifier: ^2.7.1
-        version: 2.7.1(eslint@9.39.1)(turbo@2.9.6)
+        specifier: ^2.9.12
+        version: 2.9.12(eslint@9.39.1)(turbo@2.9.6)
       globals:
         specifier: ^16.5.0
         version: 16.5.0
@@ -1230,6 +1240,9 @@ packages:
     resolution: {integrity: sha512-Z7C/xXCiGWsg0KuKsHTKJxbWhpI3Vs5GwLfOean7MGyVFGqdRgBbAjOCh6u4bbjPc/8MJ2pZmK/0DLdCbivLDA==}
     engines: {node: '>=8'}
 
+  '@microsoft/tsdoc@0.16.0':
+    resolution: {integrity: sha512-xgAyonlVVS+q7Vc7qLW0UrJU7rSFcETRWsqdXZtjzRU8dF+6CkozTK4V4y1LwOX7j8r/vHphjDeMeGI4tNGeGA==}
+
   '@napi-rs/wasm-runtime@0.2.12':
     resolution: {integrity: sha512-ZVWUcfwY4E/yPitQJl481FjFo3K22D6qF0DuFH6Y/nbnE11GY5uguDxZMGXPQ8WQ0128MXQD7TnfHyK4oWoIJQ==}
 
@@ -1277,6 +1290,19 @@ packages:
       '@nestjs/websockets':
         optional: true
 
+  '@nestjs/mapped-types@2.1.1':
+    resolution: {integrity: sha512-SCCoMEJ6jdeI5h/N+KCVF1+pmg/hmEkNA5nHTS8Gvww7T/LCl4o1gFLinw2iQ60w7slFkszHcGLKGdazVI4F8A==}
+    peerDependencies:
+      '@nestjs/common': ^10.0.0 || ^11.0.0
+      class-transformer: ^0.4.0 || ^0.5.0
+      class-validator: ^0.13.0 || ^0.14.0 || ^0.15.0
+      reflect-metadata: ^0.1.12 || ^0.2.0
+    peerDependenciesMeta:
+      class-transformer:
+        optional: true
+      class-validator:
+        optional: true
+
   '@nestjs/platform-express@11.1.19':
     resolution: {integrity: sha512-Vpdv8jyCQdThfoTx+UTn+DRYr6H6X02YUqcpZ3qP6G3ZUwtVp7eS+hoQPGd4UuCnlnFG8Wqr2J9bGEzQdi1rIg==}
     peerDependencies:
@@ -1290,6 +1316,23 @@ packages:
       typescript: '>=4.8.2'
     peerDependenciesMeta:
       prettier:
+        optional: true
+
+  '@nestjs/swagger@11.4.3':
+    resolution: {integrity: sha512-LR4BuOj+iBFzhGRnNP0OHjmrPXliDEjrmniXtLsfLDIELjkuUXYCTGjZMqgDdOY+QSabeF59LndaDzOOe+vMmw==}
+    peerDependencies:
+      '@fastify/static': ^8.0.0 || ^9.0.0
+      '@nestjs/common': ^11.0.1
+      '@nestjs/core': ^11.0.1
+      class-transformer: '*'
+      class-validator: '*'
+      reflect-metadata: ^0.1.12 || ^0.2.0
+    peerDependenciesMeta:
+      '@fastify/static':
+        optional: true
+      class-transformer:
+        optional: true
+      class-validator:
         optional: true
 
   '@nestjs/testing@11.1.19':
@@ -1404,6 +1447,9 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
+
+  '@scarf/scarf@1.4.0':
+    resolution: {integrity: sha512-xxeapPiUXdZAE3che6f3xogoJPeZgig6omHEy1rIY5WVsB3H2BHNnZH+gHG6x91SCWyQCzWGsuL2Hh3ClO5/qQ==}
 
   '@sinclair/typebox@0.27.10':
     resolution: {integrity: sha512-MTBk/3jGLNB2tVxv6uLlFh1iu64iYOQ2PbdOSK3NW8JZsmlaOh2q6sdtKowBhfw8QFLmYNzTW4/oK4uATIi6ZA==}
@@ -1549,6 +1595,10 @@ packages:
     peerDependencies:
       '@types/react': ^19.2.0
 
+  '@types/react-native@0.73.0':
+    resolution: {integrity: sha512-6ZRPQrYM72qYKGWidEttRe6M5DZBEV5F+MHMHqd4TTYx0tfkcdrUFGdef6CCxY0jXU7wldvd/zA/b0A/kTeJmA==}
+    deprecated: This is a stub types definition. react-native provides its own type definitions, so you do not need this installed.
+
   '@types/react@19.1.17':
     resolution: {integrity: sha512-Qec1E3mhALmaspIrhWt9jkQMNdw6bReVu64mjvhbhq2NFPftLPVr+l1SZgmw/66WwBNpDh7ao5AT6gF5v41PFA==}
 
@@ -1637,6 +1687,7 @@ packages:
 
   '@ungap/structured-clone@1.3.0':
     resolution: {integrity: sha512-WmoN8qaIAo7WTYWbAZuG8PYEhn5fkz7dZrqTBZ7dtt//lL2Gwms1IcnQ5yHqjDfX8Ft5j4YzDM23f87zBfDe9g==}
+    deprecated: Potential CWE-502 - Update to 1.3.1 or higher
 
   '@unrs/resolver-binding-android-arm-eabi@1.11.1':
     resolution: {integrity: sha512-ppLRUgHVaGRWUx0R0Ut06Mjo9gBaBkg3v/8AxusGLhsIotbBLuRk51rAzqLC8gq6NyyAojEXglNjzf6R948DNw==}
@@ -2630,8 +2681,8 @@ packages:
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7
 
-  eslint-plugin-turbo@2.7.1:
-    resolution: {integrity: sha512-ZC7dTOdw6tGuvx1CeC1WQ0pMkgT/Jmj69QW93d63nysiLbbKRLiDKKA9s/TvwJHq8Uvbou2+hnU8if1L0jHsVQ==}
+  eslint-plugin-turbo@2.9.12:
+    resolution: {integrity: sha512-Ilv1DTYyghdIdTUsW/VbjVTYKt1Hfs7X2C+rq/i4u7ZVofzcHZwk/3QwrV5UyOGADmxmWNyD+xcRS7+ZE5arQg==}
     peerDependencies:
       eslint: '>6.6.0'
       turbo: '>2.0.0'
@@ -3507,6 +3558,10 @@ packages:
 
   js-yaml@4.1.0:
     resolution: {integrity: sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==}
+    hasBin: true
+
+  js-yaml@4.1.1:
+    resolution: {integrity: sha512-qQKT4zQxXl8lLwBtHMWwaTcGfFOZviOJet3Oy/xmGk2gZH677CJM9EvtfdSkgWcATZhj/55JZ0rmy3myCT5lsA==}
     hasBin: true
 
   jsc-safe-url@0.2.4:
@@ -4501,6 +4556,7 @@ packages:
 
   semver@6.3.1:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
+    hasBin: true
 
   semver@7.7.3:
     resolution: {integrity: sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==}
@@ -4767,6 +4823,9 @@ packages:
   supports-preserve-symlinks-flag@1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
+
+  swagger-ui-dist@5.32.6:
+    resolution: {integrity: sha512-75ttZNaYCLoFPnozPZcTUU6mS3wKT8l7WLjU5zJSHFeJa23i5vtnze6IiCl4jDMPeQTXVXIgovq4M11NNfQvSA==}
 
   symbol-observable@4.0.0:
     resolution: {integrity: sha512-b19dMThMV4HVFynSAM1++gBHAbk2Tc/osgLIBZMKsyqh34jb2e8Os7T6ZW/Bt3pJFdBTd2JwAnAAEQV7rSNvcQ==}
@@ -5055,6 +5114,7 @@ packages:
 
   uuid@7.0.3:
     resolution: {integrity: sha512-DPSke0pXhTZgoF/d+WSt2QaKMCFSfx7QegxEWT+JOuHF5aWrKEn0G+ztjuJg/gG8/ItK+rbPCD/yNv8yyih6Cg==}
+    deprecated: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
     hasBin: true
 
   v8-compile-cache-lib@3.0.1:
@@ -6141,7 +6201,7 @@ snapshots:
       getenv: 2.0.0
       jimp-compact: 0.16.1
       parse-png: 2.1.0
-      semver: 7.7.3
+      semver: 7.7.4
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -6244,7 +6304,7 @@ snapshots:
       debug: 4.4.3
       expo: 54.0.34(@babel/core@7.29.0)(@expo/metro-runtime@6.1.2)(react-native@0.81.5(@babel/core@7.29.0)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)(typescript@5.9.2)
       resolve-from: 5.0.0
-      semver: 7.7.3
+      semver: 7.7.4
       xml2js: 0.6.0
     transitivePeerDependencies:
       - supports-color
@@ -6721,6 +6781,8 @@ snapshots:
 
   '@lukeed/csprng@1.1.0': {}
 
+  '@microsoft/tsdoc@0.16.0': {}
+
   '@napi-rs/wasm-runtime@0.2.12':
     dependencies:
       '@emnapi/core': 1.10.0
@@ -6781,6 +6843,11 @@ snapshots:
     optionalDependencies:
       '@nestjs/platform-express': 11.1.19(@nestjs/common@11.1.19(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.19)
 
+  '@nestjs/mapped-types@2.1.1(@nestjs/common@11.1.19(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)':
+    dependencies:
+      '@nestjs/common': 11.1.19(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      reflect-metadata: 0.2.2
+
   '@nestjs/platform-express@11.1.19(@nestjs/common@11.1.19(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.19)':
     dependencies:
       '@nestjs/common': 11.1.19(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -6818,6 +6885,18 @@ snapshots:
       prettier: 3.7.4
     transitivePeerDependencies:
       - chokidar
+
+  '@nestjs/swagger@11.4.3(@nestjs/common@11.1.19(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.19(@nestjs/common@11.1.19(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.19)(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)':
+    dependencies:
+      '@microsoft/tsdoc': 0.16.0
+      '@nestjs/common': 11.1.19(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      '@nestjs/core': 11.1.19(@nestjs/common@11.1.19(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.19)(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      '@nestjs/mapped-types': 2.1.1(@nestjs/common@11.1.19(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)
+      js-yaml: 4.1.1
+      lodash: 4.18.1
+      path-to-regexp: 8.4.2
+      reflect-metadata: 0.2.2
+      swagger-ui-dist: 5.32.6
 
   '@nestjs/testing@11.1.19(@nestjs/common@11.1.19(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.19(@nestjs/common@11.1.19(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.19)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.19(@nestjs/common@11.1.19(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.19))':
     dependencies:
@@ -6979,6 +7058,8 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.1.17
 
+  '@scarf/scarf@1.4.0': {}
+
   '@sinclair/typebox@0.27.10': {}
 
   '@sinclair/typebox@0.34.49': {}
@@ -7133,6 +7214,19 @@ snapshots:
     dependencies:
       '@types/react': 19.2.2
 
+  '@types/react-native@0.73.0(@babel/core@7.29.0)(@types/react@19.1.17)(react@19.1.0)':
+    dependencies:
+      react-native: 0.81.5(@babel/core@7.29.0)(@types/react@19.1.17)(react@19.1.0)
+    transitivePeerDependencies:
+      - '@babel/core'
+      - '@react-native-community/cli'
+      - '@react-native/metro-config'
+      - '@types/react'
+      - bufferutil
+      - react
+      - supports-color
+      - utf-8-validate
+
   '@types/react@19.1.17':
     dependencies:
       csstype: 3.1.3
@@ -7238,7 +7332,7 @@ snapshots:
       '@typescript-eslint/visitor-keys': 8.50.0
       debug: 4.4.3
       minimatch: 9.0.5
-      semver: 7.7.3
+      semver: 7.7.4
       tinyglobby: 0.2.15
       ts-api-utils: 2.1.0(typescript@5.9.2)
       typescript: 5.9.2
@@ -8358,7 +8452,7 @@ snapshots:
       string.prototype.matchall: 4.0.12
       string.prototype.repeat: 1.0.0
 
-  eslint-plugin-turbo@2.7.1(eslint@9.39.1)(turbo@2.9.6):
+  eslint-plugin-turbo@2.9.12(eslint@9.39.1)(turbo@2.9.6):
     dependencies:
       dotenv: 16.0.3
       eslint: 9.39.1
@@ -8726,7 +8820,7 @@ snapshots:
       minimatch: 3.1.2
       node-abort-controller: 3.1.1
       schema-utils: 3.3.0
-      semver: 7.7.3
+      semver: 7.7.4
       tapable: 2.3.3
       typescript: 5.9.3
       webpack: 5.106.0
@@ -9138,7 +9232,7 @@ snapshots:
       '@babel/parser': 7.29.2
       '@istanbuljs/schema': 0.1.6
       istanbul-lib-coverage: 3.2.2
-      semver: 7.7.3
+      semver: 7.7.4
     transitivePeerDependencies:
       - supports-color
 
@@ -9481,7 +9575,7 @@ snapshots:
       jest-message-util: 30.3.0
       jest-util: 30.3.0
       pretty-format: 30.3.0
-      semver: 7.7.3
+      semver: 7.7.4
       synckit: 0.11.12
     transitivePeerDependencies:
       - supports-color
@@ -9577,6 +9671,10 @@ snapshots:
       esprima: 4.0.1
 
   js-yaml@4.1.0:
+    dependencies:
+      argparse: 2.0.1
+
+  js-yaml@4.1.1:
     dependencies:
       argparse: 2.0.1
 
@@ -9733,7 +9831,7 @@ snapshots:
 
   make-dir@4.0.0:
     dependencies:
-      semver: 7.7.3
+      semver: 7.7.4
 
   make-error@1.3.6: {}
 
@@ -10219,7 +10317,7 @@ snapshots:
     dependencies:
       hosted-git-info: 7.0.2
       proc-log: 4.2.0
-      semver: 7.7.3
+      semver: 7.7.4
       validate-npm-package-name: 5.0.1
 
   npm-run-path@4.0.1:
@@ -11111,6 +11209,10 @@ snapshots:
       supports-color: 7.2.0
 
   supports-preserve-symlinks-flag@1.0.0: {}
+
+  swagger-ui-dist@5.32.6:
+    dependencies:
+      '@scarf/scarf': 1.4.0
 
   symbol-observable@4.0.0: {}
 
