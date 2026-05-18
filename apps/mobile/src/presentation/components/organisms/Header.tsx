@@ -14,7 +14,7 @@ export default function Header() {
 
       {/* Logo */}
       <Image 
-        source={require('../assets/images/LOGO_CONSORCIO_RECIFE_AMBIENTAL_BRANCO.png')} 
+        source={require('../../../../assets/images/LOGO_CONSORCIO_RECIFE_AMBIENTAL_BRANCO.png')} 
         style={styles.logo} 
       />
 
