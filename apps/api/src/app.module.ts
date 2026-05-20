@@ -1,14 +1,22 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-// Adicionamos a importação do seu controller do Swagger
+import { PrismaModule } from './prisma/prisma.module';
+import { UsersModule } from './users/users.module';
 import { UsersController } from './users/users.controller';
 
 @Module({
-  imports: [],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    PrismaModule,
+    UsersModule,
+  ],
   controllers: [
-    AppController, 
-    UsersController // Colocamos o seu controller aqui para o NestJS ativar a rota
+    AppController,
+    UsersController,
   ],
   providers: [AppService],
 })
