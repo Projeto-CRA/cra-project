@@ -1,6 +1,10 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
-export default function Header() {
+type Props = {
+  title: string;
+};
+
+export default function Header({title}: Props) {
   return (
     <View style={styles.container}>
       
@@ -10,11 +14,11 @@ export default function Header() {
       </TouchableOpacity>
 
       {/* Título */}
-      <Text style={styles.title}>Consórcio Recife Ambiental</Text>
+      <Text style={styles.title}>{title}</Text>
 
       {/* Logo */}
       <Image 
-        source={require('../assets/images/LOGO_CONSORCIO_RECIFE_AMBIENTAL_BRANCO.png')} 
+        source={require('../../../../assets/images/LOGO_CONSORCIO_RECIFE_AMBIENTAL_BRANCO.png')} 
         style={styles.logo} 
       />
 
