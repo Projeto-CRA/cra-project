@@ -1,5 +1,4 @@
 import { View, StyleSheet, SafeAreaView, ScrollView } from "react-native";
-
 import Header from "../../components/organisms/Header";
 import Button from "../../components/atoms/Button";
 import InfoCard from "../../components/molecules/RectangularCard";

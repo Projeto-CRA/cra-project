@@ -39,3 +39,9 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+#gitgnore
+
+.cra-project\apps\mobile\src\presentation\screens\leaderscreens\MapScreen.tsx
+.cra-project\apps\mobile\src\presentation\screens\leaderscreens\ChecaTrechosScreen.tsx
+
