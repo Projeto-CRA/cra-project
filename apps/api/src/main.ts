@@ -7,7 +7,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Consórcio Recife Ambiental - API')
-    .setDescription('Documentação técnica das rotas desenvolvidas pela equipe.')
+    .setDescription("Documentação técnica das rotas desenvolvidas pela equipe - Teste de PR.")
     .setVersion('1.0')
     .build();
     
