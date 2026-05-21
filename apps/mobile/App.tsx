@@ -1,11 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import SuppliesScreen from './src/presentation/screens/leaderscreens/SuppliesScreen';
+import RegistrarSinistro from "../mobile/src/presentation/screens/leaderscreens/Tela06-Sinistro"
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <SuppliesScreen/>
+      <RegistrarSinistro/>
     </View>
   );
 }
