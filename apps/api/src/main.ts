@@ -7,7 +7,9 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Consórcio Recife Ambiental - API')
-    .setDescription('Documentação técnica das rotas desenvolvidas pela equipe.')
+    .setDescription(
+      'Documentação oficial das rotas e serviços da API do Consórcio Recife Ambiental. Desenvolvido para o gerenciamento inteligente de resíduos e operações municipais na Sprint 2.',
+    )
     .setVersion('1.0')
     .build();
     
