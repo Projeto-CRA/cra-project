@@ -43,5 +43,4 @@ yarn-error.*
 #gitgnore
 
 .cra-project\apps\mobile\src\presentation\screens\leaderscreens\MapScreen.tsx
-.cra-project\apps\mobile\src\presentation\screens\leaderscreens\ChecaTrechosScreen.tsx
 
