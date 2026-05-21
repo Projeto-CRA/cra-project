@@ -3,21 +3,25 @@ import React, { useState } from 'react';
 import { View, Text, Switch, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import Header from '../components/organisms/Header'; 
 
-export type MembroEquipe = {
+//Define o tipo de dados de cada membro da equipe
+export type TeamMember = {
   id: string;
   nome: string;
   matricula: string;
   presente: boolean;
 };
 
-interface FrequenciaEquipeProps {
-  equipeInicial: MembroEquipe[];
-  onSalvar: (equipe: MembroEquipe[]) => void;
+interface TeamFrequencyProps {
+  equipeInicial: TeamMember[];
+  onSalvar: (equipe: TeamMember[]) => void;
 }
 
-export const FrequenciaEquipe: React.FC<FrequenciaEquipeProps> = ({ equipeInicial, onSalvar }) => {
-  const [equipe, setEquipe] = useState<MembroEquipe[]>(equipeInicial);
+//Componente principal que controla a frequência da equipe
+export const TeamFrequency: React.FC<TeamFrequencyProps> = ({ equipeInicial, onSalvar }) => {
+  //Estado local que armazena a lista de membros e suas presenças
+  const [equipe, setEquipe] = useState<TeamMember[]>(equipeInicial);
 
+  //Função que alterna o status de presença de um membro específico
   const togglePresenca = (id: string) => {
     setEquipe(prev =>
       prev.map(membro =>
@@ -29,25 +33,30 @@ export const FrequenciaEquipe: React.FC<FrequenciaEquipeProps> = ({ equipeInicia
   return (
     <View style={styles.container}>
 
-      <Header />
+      {/*Cabeçalho da tela*/}
+      <Header title={'Frequência da Equipe'} />
 
+      {/*Título e subtítulo da tela*/}
       <Text style={styles.titulo}>Frequência da Equipe</Text>
       <Text style={styles.subtitulo}>Marque a presença dos membros para hoje</Text>
 
+      {/*Lista que renderiza todos os membros da equipe*/}
       <FlatList
         data={equipe}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item.id} //Identifica cada item da lista
         renderItem={({ item }) => (
           <View style={styles.itemContainer}>
+            {/*Exibe informações do membro*/}
             <View style={styles.infoContainer}>
               <Text style={styles.nome}>{item.nome}</Text>
               <Text style={styles.matricula}>Matrícula: {item.matricula}</Text>
             </View>
+            {/*Exibe status e botão de alternância de presença*/}
             <View style={styles.switchContainer}>
               <Text style={styles.status}>{item.presente ? 'Presente' : 'Ausente'}</Text>
               <Switch
-                value={item.presente}
-                onValueChange={() => togglePresenca(item.id)}
+                value={item.presente} //Mostra se está presente ou não
+                onValueChange={() => togglePresenca(item.id)} //Alterna presença ao mudar
                 thumbColor={item.presente ? '#fff' : '#ccc'}
                 trackColor={{ true: '#2E7D32', false: '#BDBDBD' }}
               />
@@ -56,6 +65,7 @@ export const FrequenciaEquipe: React.FC<FrequenciaEquipeProps> = ({ equipeInicia
         )}
       />
 
+      {/*Botão que salva a frequência atual da equipe*/}
       <TouchableOpacity style={styles.botaoSalvar} onPress={() => onSalvar(equipe)}>
         <Text style={styles.textoBotao}>Salvar Frequência</Text>
       </TouchableOpacity>
@@ -63,6 +73,7 @@ export const FrequenciaEquipe: React.FC<FrequenciaEquipeProps> = ({ equipeInicia
   );
 };
 
+//Estilos visuais da tela
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -116,11 +127,11 @@ const styles = StyleSheet.create({
   status: {
     fontSize: 14,
     marginRight: 8,
-    color: '#5A8251', // Primary verde
+    color: '#5A8251',
     fontWeight: '500',
   },
   botaoSalvar: {
-    backgroundColor: '#5A8251', // Primary
+    backgroundColor: '#5A8251',
     paddingVertical: 14,
     borderRadius: 10,
     marginTop: 20,
@@ -132,40 +143,3 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
 });
-
-/* Código para teste da tela de frequência da equipe - App.tsx
-    
-    import { StatusBar } from 'expo-status-bar';
-    import { StyleSheet, View } from 'react-native';
-    import { FrequenciaEquipe, MembroEquipe } from '../mobile/src/presentation/screens/TeamFrequency';
-
-    export default function App() {
-    // Dados mockados de funcionários
-    const equipeMock: MembroEquipe[] = [
-        { id: '1', nome: 'José Carlos da Silva', matricula: '12345', presente: true },
-        { id: '2', nome: 'Maria das Graças', matricula: '12346', presente: false },
-        { id: '3', nome: 'Antônio Ferreira', matricula: '12347', presente: true },
-        { id: '4', nome: 'Edivaldo Santos', matricula: '12348', presente: true },
-        { id: '5', nome: 'Josilene Almeida', matricula: '12349', presente: false },
-        { id: '6', nome: 'Paulo Roberto Souza', matricula: '12350', presente: true },
-    ];
-
-    const handleSalvar = (equipe: MembroEquipe[]) => {
-        console.log('Equipe salva:', equipe);
-    };
-
-    return (
-        <View style={styles.container}>
-        <FrequenciaEquipe equipeInicial={equipeMock} onSalvar={handleSalvar} />
-        <StatusBar style="auto" />
-        </View>
-    );
-    }
-
-    const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-    },
-    });
-*/
