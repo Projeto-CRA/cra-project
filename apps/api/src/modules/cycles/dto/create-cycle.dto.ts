@@ -1,19 +1,15 @@
-import { IsString, IsNotEmpty, IsNumber, IsUUID } from 'class-validator';
+import { IsString, IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
 
 export class CreateCycleDto {
-    @IsUUID('4', { message: 'ID do usuário inválido.' })
-    @IsNotEmpty()
-    userId: string;
+  @IsString()
+  @IsNotEmpty({ message: 'O código do trecho (sectionCode) é obrigatório.' })
+  sectionCode: string;
 
-    @IsString()
-    @IsNotEmpty({ message: 'O código do trecho (sectionCode) é obrigatório.' })
-    sectionCode: string;
+  @IsNumber()
+  @IsOptional()
+  latitude?: number;
 
-    @IsNumber()
-    @IsNotEmpty()
-    startLat: number;
-
-    @IsNumber()
-    @IsNotEmpty()
-    startLng: number;
+  @IsNumber()
+  @IsOptional()
+  longitude?: number;
 }

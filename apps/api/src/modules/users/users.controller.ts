@@ -1,19 +1,16 @@
-import { Controller, Post, Body, Get, Param, UseGuards } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
+import { Controller, Get } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
-@Controller('users') // Base URL definida na doc: /v1/users
+@ApiTags('Usuários')
+@Controller('users')
 export class UsersController {
-    constructor(private readonly usersService: UsersService) { }
+  // Removemos o constructor que pedia o UsersService
 
-    @Post()
-    async create(@Body() createUserDto: CreateUserDto) {
-        // Chama o service para processar a criação
-        return this.usersService.create(createUserDto);
-    }
-
-    @Get(':id')
-    async findOne(@Param('id') id: string) {
-        return this.usersService.findById(id);
-    }
+  @Get()
+  @ApiOperation({ summary: 'Lista todos os usuários do sistema (Simulado)' })
+  @ApiResponse({ status: 200, description: 'Sucesso' })
+  findAll() {
+    // Retorno fixo apenas para o Swagger validar a rota
+    return [{ id: 1, nome: 'Usuário Teste', role: 'ADMIN' }];
+  }
 }

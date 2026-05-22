@@ -1,36 +1,24 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '../../prisma/prisma.service';
+import { PrismaService } from '../../infrastructure/database/prisma.service';
 import { CreateSupplyDto } from './dto/create-supply.dto';
 
 @Injectable()
 export class SuppliesService {
-    constructor(private prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
-    async create(dto: CreateSupplyDto) {
-        // 1. Validar se o ciclo existe antes de registar o insumo
-        const cycle = await this.prisma.cycle.findUnique({
-            where: { id: dto.cycleId },
-        });
+  async create(cycleId: string, dto: CreateSupplyDto) {
+    const cycle = await this.prisma.cycle.findUnique({
+      where: { id: cycleId },
+    });
+    if (!cycle) throw new NotFoundException('Ciclo nao encontrado');
 
-        if (!cycle) {
-            throw new NotFoundException('Ciclo de atividade não encontrado.');
-        }
-
-        // 2. Criar o registo no PostgreSQL
-        return this.prisma.supply.create({
-            data: {
-                cycleId: dto.cycleId,
-                type: dto.type,
-                quantity: dto.quantity,
-                unit: dto.unit,
-            },
-        });
-    }
-
-    async findByCycle(cycleId: string) {
-        return this.prisma.supply.findMany({
-            where: { cycleId },
-            orderBy: { createdAt: 'desc' },
-        });
-    }
+    return this.prisma.supply.create({
+      data: {
+        cycleId,
+        type: dto.type,
+        quantity: dto.quantity,
+        unit: dto.unit,
+      },
+    });
+  }
 }

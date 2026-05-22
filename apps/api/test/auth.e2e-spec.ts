@@ -41,7 +41,7 @@ describe('AuthController (e2e)', () => {
       expect(response.body).toHaveProperty('user');
       expect(response.body.user).toHaveProperty('id');
       expect(response.body.user).toHaveProperty('username', testUser.username);
-      
+
       expect(response.body).toHaveProperty('tokens');
       expect(response.body.tokens).toHaveProperty('access_token');
       expect(response.body.tokens).toHaveProperty('refresh_token');
