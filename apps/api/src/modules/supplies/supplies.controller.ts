@@ -1,20 +1,19 @@
-import { Controller, Post, Body, Get, Param } from '@nestjs/common';
+import { Controller, Post, Param, Body, UseGuards } from '@nestjs/common';
+import { ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
+import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { SuppliesService } from './supplies.service';
 import { CreateSupplyDto } from './dto/create-supply.dto';
 
-@Controller('supplies')
+@ApiTags('Supplies')
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
+@Controller('cycles/:id/supplies')
 export class SuppliesController {
-    constructor(private readonly suppliesService: SuppliesService) { }
+  constructor(private readonly suppliesService: SuppliesService) {}
 
-    @Post()
-    async create(@Body() createSupplyDto: CreateSupplyDto) {
-        // Rota: POST /v1/supplies
-        return this.suppliesService.create(createSupplyDto);
-    }
-
-    @Get('cycle/:cycleId')
-    async findAllByCycle(@Param('cycleId') cycleId: string) {
-        // Rota: GET /v1/supplies/cycle/:cycleId
-        return this.suppliesService.findByCycle(cycleId);
-    }
+  @Post()
+  @ApiOperation({ summary: 'Registrar insumos do ciclo' })
+  create(@Param('id') cycleId: string, @Body() dto: CreateSupplyDto) {
+    return this.suppliesService.create(cycleId, dto);
+  }
 }

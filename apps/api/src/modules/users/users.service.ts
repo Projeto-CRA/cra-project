@@ -1,46 +1,57 @@
-import { Injectable, ConflictException } from '@nestjs/common';
-import { PrismaService } from '../../prisma/prisma.service';
-import { CreateUserDto } from './dto/create-user.dto';
+import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
+
+export type User = any; // Representação genérica, pode ser refinada com interface
 
 @Injectable()
 export class UsersService {
-    constructor(private prisma: PrismaService) { }
+  // Simulando um banco de dados em memória
+  private readonly users: User[] = [];
 
-    async create(dto: CreateUserDto) {
-        // Verifica unicidade do e-mail
-        const emailExists = await this.prisma.user.findUnique({
-            where: { email: dto.email },
-        });
+  async findByUsername(username: string): Promise<User | undefined> {
+    return this.users.find((user) => user.username === username);
+  }
 
-        if (emailExists) {
-            throw new ConflictException('Este e-mail já está cadastrado no sistema.');
-        }
+  async findById(id: string): Promise<User | undefined> {
+    return this.users.find((user) => user.id === id);
+  }
 
-        // Hash da senha conforme Documentação
-        const salt = await bcrypt.genSalt(12);
-        const passwordHash = await bcrypt.hash(dto.password, salt);
+  async create(user: any): Promise<User> {
+    // Hasheando a senha com bcrypt antes de salvar
+    const saltOrRounds = 10;
+    const hashedPassword = await bcrypt.hash(user.password, saltOrRounds);
 
-        // Persistência no PostgreSQL via Prisma
-        return this.prisma.user.create({
-            data: {
-                email: dto.email,
-                passwordHash, // Mapeia para password_hash no banco
-                fullName: dto.fullName, // Mapeia para full_name no banco
-                role: dto.role,
-                isActive: true,
-            },
-            select: { // Retorna o objeto criado sem a senha por segurança
-                id: true,
-                email: true,
-                fullName: true,
-                role: true,
-                createdAt: true,
-            }
-        });
+    const newUser = {
+      ...user,
+      id: Date.now().toString(), // id fictício
+      password: hashedPassword,
+      refreshToken: null,
+    };
+
+    this.users.push(newUser);
+
+    // Retornamos o usuário sem a senha (boas práticas)
+    const { password, ...result } = newUser;
+    return result;
+  }
+
+  async updateRefreshToken(
+    id: string,
+    refreshToken: string | null,
+  ): Promise<void> {
+    const userIndex = this.users.findIndex((u) => u.id === id);
+    if (userIndex > -1) {
+      if (refreshToken) {
+        // Salvar hash do refresh token (para segurança extra)
+        const saltOrRounds = 10;
+        this.users[userIndex].refreshToken = await bcrypt.hash(
+          refreshToken,
+          saltOrRounds,
+        );
+      } else {
+        // Remover refresh token no logout
+        this.users[userIndex].refreshToken = null;
+      }
     }
-
-    async findById(id: string) {
-        return this.prisma.user.findUnique({ where: { id } });
-    }
+  }
 }
